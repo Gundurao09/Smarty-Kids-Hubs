@@ -1,0 +1,84 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_signup.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>User Interface</h1>
+    </header>
+
+    <form action="/add_user" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+        <label for="conform_password">Conform Password:</label>
+        <input type="number" name="conform_password" required>
+        <button type="submit">Sign up</button>
+    </form>
+
+</body>
+
+</html>
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="icon" href="/static/images/main.webp" type="image/x-icon" />
+     <title>User Interface</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='user_signup.css') }}">
+ </head>
+ <body>
+     <header>
+         <h1>User Interface</h1>
+     </header>
+ 
+     <form action="/add_user" method="post" id="signup-form">
+         <label for="name">Name:</label>
+         <input type="text" name="name" required>
+ 
+         <label for="email">Email:</label>
+         <input type="email" name="email" required>
+ 
+         <label for="password">Password:</label>
+         <input type="password" name="password" required>
+ 
+         <label for="conform_password">Confirm Password:</label>
+         <input type="password" name="conform_password" required>
+
+         <label for="class">Class:</label>
+    <select name="class" id="class" required>
+        <option value="5">Select the Class </option>
+        <option value="5">5th Standard</option>
+        <option value="6">6th Standard</option>
+        <option value="7">7th Standard</option>
+        <!-- Add more options as needed -->
+    </select>
+         <button type="submit">Sign up</button>
+     </form>
+ 
+     {% if error %}
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             alert("{{ error }}");
+         });
+     </script>
+     {% endif %}
+ </body>
+ </html>
+ <script>
+    </script>
+ 
+ 

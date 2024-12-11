@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/images/main.webp" type="image/x-icon" />
+    <title>Counts</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center children horizontally */
+            justify-content: center; /* Center children vertically */
+            background-image: url('/static/images/tree.jpg');
+            background-size: cover;
+        }
+
+        header {
+            display: flex;
+            flex-direction: row; /* Display cards horizontally */
+            align-items: center;
+            padding: 20px;
+            overflow-x: auto; /* Enable horizontal scrolling if needed */
+        }
+
+        .card {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px;
+            max-width: 200px; /* Adjusted maximum width */
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2em;
+        }
+
+        #size {
+            margin-top: 10px;
+            max-width: 200px; /* Adjusted maximum width for the dropdown */
+        }
+
+        .login {
+            padding: 10px;
+            font-size: 1em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<header>
+    <div class="card">
+        <h1>User Count</h1>
+        <p>The total number of users is: {{ user_count }}</p>
+    </div>
+    <!-- <div class="card">
+        <h1>Item Count</h1>
+        <p>The total number of items is: {{ item_count }}</p>
+    </div>
+    <div class="card">
+        <h1>Order Count</h1>
+        <p>The total number of orders is: {{ order_count }}</p>
+    </div> -->
+</header>
+<body>
+    <div id="size">
+        <select class="login" onchange="openNewWindow(this.value);">
+            <option value="">Select the option</option>
+            <option value="{{ url_for('classification_results')}}">View the details</option>
+            <option value="">DASHBORD</option>
+            <!-- classification_results -->
+        </select>
+    </div>
+</body>
+</html>
+<script>
+    function openNewWindow(selectedValue) {
+        var url;
+        if (selectedValue === "{{ url_for('classification_results')}}") {
+            url = "{{ url_for('classification_results')}}";
+        } else if (selectedValue === "") {
+            url = "";
+        }
+
+        if (url) {
+            window.open(url, "_blank");
+        }
+    }
+</script>

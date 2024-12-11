@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/static/images/main.webp" type="image/x-icon" />
+    <title>Smart Kids</title>
+    <link rel="stylesheet" href="style1.css" />
+</head>
+
+<body>
+    <header>
+        <h2 class="logo">ADMIN</h2>
+        <nav class="navigation">
+            <a href="{{url_for('main')}}">Home</a>
+            <a href="">About</a>
+            <a href="">Services</a>
+            <a href="{{url_for('admin_contact')}}">contact</a>
+            <!-- <button class="btnlogin-popup">Login</button> -->
+        </nav>
+    </header>
+    <div class="wrapper">
+        <div class="form-box login">
+            <h2>Login</h2>
+            <form action="#" class="myForm">
+                <div class="input-box">
+                    <input type="email" id="email" required style="width: 100%" />
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" required style="width: 100%" />
+                    <label>Password</label>
+                </div>
+                <input type="button" value="Login" onclick="login()" class="login-button" />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+<script >
+    function login() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    // Replace with your actual email and password validation logic
+    if (email === "gundu@gmail.com" && password === "1234") {
+      alert("Login successful!");
+  
+      // Clear input fields
+      document.getElementById("email").value = "";
+      document.getElementById("password").value = "";
+  
+      window.location.href = "{{ url_for('count_details')}}"; // Redirect to the welcome page
+    } else if (email === "mani@gmail.com" && password === "1234") {
+      document.getElementById("email").value = "";
+      document.getElementById("password").value = "";
+      alert("Login successful!");
+    } else {
+      alert("Invalid email or password");
+      document.getElementById("email").value = "";
+      document.getElementById("password").value = "";
+    }
+  }
+</script>
+<style>
+    /* Reset default margin and padding */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: url("/static/images/background_image.webp");
+        background-size: cover;
+        background-position: center;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(240, 255, 255, 0.8);
+        padding: 20px 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 99;
+    }
+
+    .logo {
+        font-size: 2em;
+        color: rgb(24, 8, 8);
+        user-select: none;
+    }
+
+    .navigation a {
+        position: relative;
+        font-size: large;
+        color: rgb(29, 15, 15);
+        text-decoration: none;
+        font-weight: 500;
+        margin-left: 40px;
+        /* margin: 20px; */
+        /* font-weight: bold; */
+    }
+
+    .navigation a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 100%;
+        height: 3px;
+        background: rgb(24, 8, 8);
+        border-radius: 5px;
+        transform-origin: left;
+        transform: scaleX(0);
+        /* transform: scaleY(0); */
+
+        /* */
+        transition: transform 0.5s;
+        /**/
+    }
+
+    .navigation a:hover:after {
+        transform-origin: right;
+        transform: scaleX(1);
+    }
+
+    .wrapper {
+        position: relative;
+        width: 400px;
+        height: 440px;
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        backdrop-filter: blur(40px);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 100px;
+    }
+
+    .login-button {
+        width: 100%;
+        padding: 10px;
+        background-color: rgb(24, 8, 8);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.1em;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.3s;
+        margin: 30px 0 0 0;
+    }
+
+    .login-button:hover {
+        background-color: rgb(43, 23, 223);
+    }
+
+    .wrapper .form-box {
+        width: 100%;
+        padding: 50px;
+        padding-top: 20px;
+    }
+
+    .form-box h2 {
+        font-size: 2em;
+        color: black;
+        text-align: center;
+    }
+
+    .input-box {
+        position: relative;
+        width: 100%;
+        height: 92px;
+        border-bottom: 2px solid rgb(0, 0, 0);
+    }
+
+    .input-box label {
+        position: absolute;
+        top: 50px;
+        left: 5px;
+        transform: translateY(90%);
+        font-size: 1em;
+        color: rgb(0, 0, 0);
+        font-weight: 500;
+        pointer-events: none;
+        transition: 0.5s;
+        text-transform: capitalize;
+    }
+
+    .input-box input:focus~label,
+    .input-box input:valid~label {
+        top: -5px;
+    }
+
+    .input-box input {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+
+    /* Other styles for wrapper and form-box */
+</style>

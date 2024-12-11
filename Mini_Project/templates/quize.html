@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/static/images/main.webp" type="image/x-icon" />
+</head>
+<body>
+    <div class="container">
+        <h1>5th Grade Quiz Portal</h1>
+        <div id="quiz-container">
+            <div id="question">Question text</div>
+            <div id="options">
+                <button class="option-btn">Option 1</button>
+                <button class="option-btn">Option 2</button>
+                <button class="option-btn">Option 3</button>
+                <button class="option-btn">Option 4</button>
+            </div>
+            <button id="next-btn" class="option-btn">Next</button>
+            <button id="submit-btn" class="option-btn">Submit</button>
+        </div>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ecef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #333;
+}
+
+#quiz-container {
+    margin-top: 20px;
+}
+
+#question {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+.option-btn {
+    display: block;
+    width: calc(100% - 20px);
+    margin: 10px auto;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+.option-btn:hover {
+    background-color: #0056b3;
+}
+
+.option-btn.selected {
+    background-color: #28a745;
+    color: white;
+}
+
+#result {
+    margin-top: 30px;
+    font-size: 1.3em;
+    color: #28a745;
+}
+
+#next-btn {
+    display: block; /* Show the next button initially */
+}
+
+#submit-btn {
+    display: none; /* Hide the submit button initially */
+}
+
+</style>
+
+
+<script>
+const quizData = [
+    {
+        question: "What is 5 + 3?",
+        options: ["5", "8", "9", "6"],
+        correct: "8"
+    },
+    {
+        question: "What planet is known as the Red Planet?",
+        options: ["Earth", "Mars", "Jupiter", "Saturn"],
+        correct: "Mars"
+    },
+    {
+        question: "What is H2O commonly known as?",
+        options: ["Oxygen", "Hydrogen", "Water", "Salt"],
+        correct: "Water"
+    }
+];
+
+let currentQuiz = 0;
+let answers = []; // Array to store selected answers
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const resultEl = document.getElementById("result");
+const nextBtn = document.getElementById("next-btn");
+const submitBtn = document.getElementById("submit-btn");
+
+loadQuiz();
+
+function loadQuiz() {
+    const currentQuizData = quizData[currentQuiz];
+    questionEl.innerText = currentQuizData.question;
+    optionsEl.innerHTML = "";
+
+    currentQuizData.options.forEach(option => {
+        const button = document.createElement("button");
+        button.classList.add("option-btn");
+        button.innerText = option;
+        button.addEventListener("click", () => selectAnswer(button, option));
+        optionsEl.appendChild(button);
+    });
+
+    nextBtn.style.display = "block"; // Show the next button
+    nextBtn.disabled = true; // Disable the next button until an answer is selected
+    submitBtn.style.display = "none"; // Hide the submit button
+}
+
+function selectAnswer(button, option) {
+    // Highlight the selected answer
+    document.querySelectorAll(".option-btn").forEach(btn => {
+        btn.classList.remove("selected");
+    });
+    button.classList.add("selected");
+    
+    // Record the selected answer
+    answers[currentQuiz] = option;
+    nextBtn.disabled = false; // Enable the next button
+}
+
+nextBtn.addEventListener("click", () => {
+    // Move to the next question
+    currentQuiz++;
+    if (currentQuiz < quizData.length) {
+        loadQuiz();
+    } else {
+        showResult();
+    }
+});
+
+function showResult() {
+    // Calculate the final score
+    let score = 0;
+    quizData.forEach((quizItem, index) => {
+        if (answers[index] === quizItem.correct) {
+            score++;
+        }
+    });
+    const totalQuestions = quizData.length;
+    const percentage = (score / totalQuestions) * 100;
+    questionEl.innerText = "Quiz Completed!";
+    optionsEl.innerHTML = "";
+    nextBtn.style.display = "none"; // Hide the next button
+    submitBtn.style.display = "block"; // Show the submit button
+    resultEl.innerText = `Your score is ${percentage.toFixed(2)}% (${score} out of ${totalQuestions})`;
+
+    window.percentage=percentage;
+}
+
+submitBtn.addEventListener("click", () => {
+    // Send the results to the server
+    fetch('/submit_results', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrf_token') // Add CSRF token if you have CSRF protection enabled
+        },
+        body: JSON.stringify({
+            user_id: getCookie('user_id'),
+            score: calculateScore(),
+            percentage:window.percentage
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        // Optionally redirect to another page or reset the quiz
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+function calculateScore() {
+    let score = 0;
+    quizData.forEach((quizItem, index) => {
+        if (answers[index] === quizItem.correct) {
+            score++;
+        }
+    });
+    return score;
+}
+
+// Function to get CSRF token from cookies
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+</script>

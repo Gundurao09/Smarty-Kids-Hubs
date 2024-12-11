@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" href="/static/images/main.webp" type="image/x-icon" />
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+
+    <h3>All Students Performance</h3>
+    <table>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Average Percentage</th>
+            <th>Overall Classification</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student[0] }}</td>
+            <td>{{ student[1] }}</td>
+            <td>{{ student[2] }}%</td>
+            <td>{{ student[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Weak Students</h3>
+    <ul>
+        {% for student in weak_students %}
+        <li>{{ student[1] }} (Avg. Percentage: {{ student[2] }}%)</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('main') }}">Back to Main</a>
+</body>
+</html>

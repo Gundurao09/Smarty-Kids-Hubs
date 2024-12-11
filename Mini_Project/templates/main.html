@@ -1,0 +1,55 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/static/images/main.webp" type="image/x-icon" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }} " />
+    <title>{% block title %}Smart Kids{% endblock %}</title>
+    <!-- {{ url_for('static', filename='style1.css') }} -->
+    <script>
+        function openNewWindow(selectedValue) {
+            var url;
+            if (selectedValue === "{{ url_for('login')}}") {
+                url = "{{ url_for('login')}}";
+            } else if (selectedValue === "{{ url_for('user_login') }}") {
+                url = "{{ url_for('user_login') }}";
+            }
+
+            if (url) {
+                window.open(url, "_blank");
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <h2 class="logo">Wellcome To Smart Kids</h2>
+        <nav class="navigation">
+            <a href="">Home</a>
+            <a href="">About</a>
+            <a href="">Services</a>
+            <a href="{{url_for('admin_contact')}}">Contact</a>
+        </nav>
+        <div id="size">
+            <select class="login" onchange="openNewWindow(this.value);">
+                <option value="">Login</option>
+                <option value="{{ url_for('login')}}">Admin</option>
+                <option value="{{ url_for('user_login') }}">User</option>
+
+            </select>
+        </div>
+    </header>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

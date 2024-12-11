@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/images/main.webp" type="image/x-icon" />
+    <title>Word Unscramble</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #e0eafc, #cfdef3); /* Subtle gradient background */
+        }
+        .container {
+            text-align: center; /* Center align text inside container */
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Soft text shadow */
+        }
+        #scrambled-word {
+            font-size: 1.5rem;
+            margin: 20px auto; /* Center horizontally */
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px; /* More rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            font-weight: bold;
+            width: fit-content; /* Adjust width based on content */
+        }
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+            width: 250px; /* Fixed width for consistency */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Inner shadow */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #3498db; /* Changed to a more vibrant color */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+        }
+        button:hover {
+            background-color: #2980b9; /* Darker shade on hover */
+            transform: scale(1.05); /* Slightly enlarge button on hover */
+        }
+        #feedback {
+            margin-top: 20px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #e74c3c; /* Red color for feedback */
+        }
+    </style>
+    
+</style>
+
+    </style>
+</head>
+<body>
+    <h1>Unscramble the Word</h1>
+    <div id="scrambled-word"></div>
+    <input type="text" id="answer" placeholder="Enter unscrambled word">
+    <button onclick="checkAnswer()">Submit</button>
+    <div id="feedback"></div>
+
+    <script>
+        // List of words
+        const words = ["apple", "train", "house", "chair", "book", "cat", "dog", "school", "friend", "plant"];
+
+
+        // Function to scramble a word
+        function scrambleWord(word) {
+            let scrambled = word.split('').sort(() => 0.5 - Math.random()).join('');
+            return scrambled;
+        }
+
+        // Function to fetch a scrambled word and display it
+        function fetchScrambledWord() {
+            const word = words[Math.floor(Math.random() * words.length)];
+            const scrambledWord = scrambleWord(word);
+            document.getElementById('scrambled-word').innerText = scrambledWord;
+            document.getElementById('scrambled-word').setAttribute('data-original', word);
+        }
+
+        // Function to check if the answer is correct
+        function checkAnswer() {
+            const answer = document.getElementById('answer').value.trim();
+            const originalWord = document.getElementById('scrambled-word').getAttribute('data-original');
+            const feedback = answer === originalWord ? 'Correct!' : 'Try again!';
+            document.getElementById('feedback').innerText = feedback;
+        }
+
+        // Fetch a scrambled word when the page loads
+        fetchScrambledWord();
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!-- admin_interface.php -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/images/main.webp" type="image/x-icon" />
+    <title>User Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_login.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>User Interface</h1>
+    </header>
+
+    <form method="post"><br>
+        <label for="email">Your Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Log In">
+        <p>Don't have an account? <a href="{{ url_for('user_signup') }}">Sign Up</a></p>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+</body>
+</html>
+{% if error %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        alert("{{ error }}");
+    });
+</script>
+{% endif %}
