@@ -1,6 +1,5 @@
 # Smarty Kids Hubs
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/Python-3.10+-blue)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/Flask-2.3-green)](https://flask.palletsprojects.com/)
 
