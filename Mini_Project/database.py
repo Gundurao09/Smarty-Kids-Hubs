@@ -1,7 +1,7 @@
 import mysql.connector as c
 
 class database:
-    def __init__(self,host="localhost",user="root",passwd="Gundu@2002"):
+    def __init__(self,host="localhost",user="root",passwd="Your Password"):
         self.__host=host
         self.__user=user
         self.__passwd=passwd
@@ -10,7 +10,7 @@ class database:
         self.conn = c.connect(
         host='localhost',
         user='root',
-        passwd='Gundu@2002',
+        passwd='Your Password',
         database = database if database else None
         )
         if self.conn == None:
@@ -22,4 +22,8 @@ class database:
     def commit(self):
         self.conn.commit()
     
+
+
+    
+
 
