@@ -1,14 +1,24 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for,flash
+from transformers import pipeline
+import sympy as sp
+from Querypart import Queries
+from flask_cors import CORS
 import os
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
-from Querypart import Queries
-app = Flask(__name__, template_folder=os.path.abspath('templates'))
-table = Queries(dbname="kinds")
+app = Flask(__name__,template_folder=os.path.abspath('templates'))
+CORS(app)
+qa_pipeline = pipeline("text-generation", model="gpt2")
+excel_file_path = "general_questions.xlsx"  # Path to your Excel file
+questions_df = pd.read_excel(excel_file_path)
+
+table = Queries(dbname="kids")
 #main page
 @app.route('/')
 def main():
     return render_template('main.html')
+@app.route('/service')
+def service():
+    return render_template('service.html')
 
 # contact_page
 @app.route('/admin_contact')
@@ -210,12 +220,49 @@ def scramble():
 def admin_dashboard(class_name):
     # Fetch students by class
     students_performance = table.get_students_by_class(class_name)
+    if not students_performance:
+        print("No students found in this class!")  # Add this line to check
+    else:
+        print(f"Students fetched for {class_name}: {students_performance}")
 
     # Insights on poorly performing students
     weak_students = [student for student in students_performance if student[3] == 'Poor']
 
     return render_template('admin_dashboard.html', class_name=class_name, students=students_performance, weak_students=weak_students)
 
+@app.route('/ask', methods=['POST'])
+def ask():
+    user_input = request.json.get("question", "").strip()
+
+    if not user_input:
+        return jsonify({"error": "No question provided!"}), 400
+    for _, row in questions_df.iterrows():
+        if user_input == row["Question"].strip().lower():
+            return jsonify({"answer": row["Answer"]})
+
+    # Check if the input is a math expression (simple check using '×', '+', '-', etc.)
+    if any(op in user_input for op in ['+', '-', '×', '÷', '*', '/']):
+        try:
+            # Attempt to evaluate the math expression
+            user_input = user_input.replace("×", "*").replace("÷", "/")  # Normalize multiplication and division symbols
+            result = str(sp.sympify(user_input))  # Use sympy for safe evaluation of mathematical expressions
+            return jsonify({"answer": f"The result is: {result}"})
+        except Exception as e:
+            return jsonify({"error": f"Error in math expression: {str(e)}"}), 400
+
+    # If it's not a math expression, generate a response from the model (automatic and dynamic)
+    response = qa_pipeline(user_input, max_length=50, num_return_sequences=1)
+    
+    answer = response[0]['generated_text']
+    return jsonify({"answer": answer.strip()})
+@app.route('/chart_bot')
+def chart_bot():
+    # Render the chart_bot.html page
+    return render_template('chart_bot.html')
+@app.route('/games')
+def game():
+    return render_template('games.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
+# gpt-3.5-turbo
