@@ -23,6 +23,15 @@ class Queries:
                 classification VARCHAR(50) DEFAULT NULL,
                 class VARCHAR(10)
             );""") 
+#         self.text.execute("""CREATE TABLE IF NOT EXISTS quiz_results (
+#     quiz_result_id INT AUTO_INCREMENT PRIMARY KEY,
+#     student_id INT,
+#     quiz_id INT,
+#     score INT,
+#     percentage DECIMAL(5, 2),
+#     FOREIGN KEY (student_id) REFERENCES user(user_id) ON DELETE CASCADE
+# );
+# """)
 
     def insert(self, table_name, values, parameters=None):
         """
@@ -86,7 +95,7 @@ class Queries:
         return self.text.fetchall()
     
     def get_students_by_class(self, class_name):
-     self.text.execute(f"""
+        self.text.execute("""
         SELECT u.user_id, u.name, AVG(q.percentage) as avg_percentage,
         CASE 
             WHEN AVG(q.percentage) < 50 THEN 'Poor'
@@ -95,10 +104,13 @@ class Queries:
         END as classification
         FROM user u
         LEFT JOIN quiz_results q ON u.user_id = q.student_id
-        WHERE u.class = '{class_name}'
+        WHERE u.class = %s  -- Parameterized query
         GROUP BY u.user_id
-    """)
-     return self.text.fetchall()
+        """, (class_name,))
+        return self.text.fetchall()
+
+
+
 
 
 
