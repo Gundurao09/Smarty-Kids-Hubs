@@ -23,8 +23,8 @@
 ## Demo  
 **Screenshots:**
 
-![Dashboard Screenshot](https://raw.githubusercontent.com/Gundurao09/Smarty-Kids-Hubs/main/Mini_Project/Screenshorts/main_dashboard.png)
-![Quiz Screenshot](https://via.placeholder.com/800x400?text=Student+Quiz)
+![Main_Dashboard Screenshot](https://raw.githubusercontent.com/Gundurao09/Smarty-Kids-Hubs/main/Mini_Project/Screenshorts/main_dashboard.png)
+![User_Dashboard](https://raw.githubusercontent.com/Gundurao09/Smarty-Kids-Hubs/main/Mini_Project/Screenshorts/chartbot.png)
 ![Learning Modules Screenshot](https://via.placeholder.com/800x400?text=Learning+Modules)
 
 ---
