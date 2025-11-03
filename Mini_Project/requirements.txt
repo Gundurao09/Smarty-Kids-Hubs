@@ -1,1 +1,11 @@
-admin_dashboard.html
+Flask==2.3.3
+Flask-CORS==4.0.0
+mysql-connector-python==8.1.0
+transformers==4.33.2
+torch==2.0.1
+sympy==1.12
+pandas==2.0.3
+openpyxl==3.1.2
+flask-bcrypt==1.0.1
+flask-session==0.5.0
+python-dotenv==1.0.0
