@@ -23,7 +23,7 @@
 ## Demo  
 **Screenshots:**
 
-![Dashboard Screenshot](https://via.placeholder.com/800x400?text=Admin+Dashboard)
+![Dashboard Screenshot]([https://via.placeholder.com/800x400?text=Admin+Dashboard](https://github.com/Gundurao09/Smarty-Kids-Hubs/blob/main/Mini_Project/static/images/background_image.webp))
 ![Quiz Screenshot](https://via.placeholder.com/800x400?text=Student+Quiz)
 ![Learning Modules Screenshot](https://via.placeholder.com/800x400?text=Learning+Modules)
 
