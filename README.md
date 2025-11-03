@@ -26,7 +26,8 @@
 ![Main_Dashboard Screenshot](https://raw.githubusercontent.com/Gundurao09/Smarty-Kids-Hubs/main/Mini_Project/Screenshorts/main_dashboard.png)
 ### **2. User Dashboard**
 ![User_Dashboard](https://raw.githubusercontent.com/Gundurao09/Smarty-Kids-Hubs/main/Mini_Project/Screenshorts/chartbot.png)
-![Learning Modules Screenshot](https://via.placeholder.com/800x400?text=Learning+Modules)
+### **3. Materials**
+![Learning Modules Screenshot](https://raw.githubusercontent.com/Gundurao09/Smarty-Kids-Hubs/main/Mini_Project/Screenshorts/material.png)
 
 ---
 
