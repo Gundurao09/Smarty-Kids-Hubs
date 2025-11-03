@@ -30,7 +30,7 @@
 ---
 
 ## Project Structure
-
+```
 Smarty-Kids-Hubs/
 ├── Mini_Project/ # Main application files
 │ ├── templates/ # HTML templates
@@ -39,6 +39,7 @@ Smarty-Kids-Hubs/
 │ └── ... # Other supporting files
 ├── README.md
 └── requirements.txt # Python dependencies
+```
 
 ## Technologies Used
 - **Frontend:** HTML, CSS, JavaScript
