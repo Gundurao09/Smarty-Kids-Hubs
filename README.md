@@ -20,8 +20,7 @@
 
 ---
 
-## Demo
-**Live Demo:** *(If hosted, add link here)*  
+## Demo  
 **Screenshots:**
 
 ![Dashboard Screenshot](https://via.placeholder.com/800x400?text=Admin+Dashboard)
