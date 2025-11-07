@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for,flash
 from transformers import pipeline
-import sympy as sp
 from Querypart import Queries
 from flask_cors import CORS
 import os
@@ -266,3 +265,4 @@ def game():
 if __name__ == '__main__':
     app.run(debug=True)
 # gpt-3.5-turbo
+
